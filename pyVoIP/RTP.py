@@ -420,8 +420,8 @@ class RTPClient:
 
     @property
     def trans_delay_reduction(self) -> float:
-        reduction = pyVoIP.TRANSMIT_DELAY_REDUCTION + 1
-        return reduction if reduction else 1.0
+        reduction = pyVoIP.TRANSMIT_DELAY_REDUCTION + 0.15
+        return reduction if reduction else 0.15
 
     def parsePacket(self, packet: bytes) -> None:
         warnings.warn(
@@ -458,7 +458,7 @@ class RTPClient:
         if self.preference == PayloadType.PCMU:
             return self.encode_pcmu(payload)
         elif self.preference == PayloadType.PCMA:
-            return self.encode_pcmu(payload)
+            return self.encode_pcma(payload)
         else:
             raise RTPParseError(
                 "Unsupported codec (encode): " + str(self.preference)
